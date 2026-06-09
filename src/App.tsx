@@ -59,6 +59,7 @@ import CommunityPage from "./components/CommunityPage";
 import LibraryRegistry from "./components/LibraryRegistry";
 import IntegrationsPage from "./components/IntegrationsPage";
 import DomainToolsPage from "./components/DomainToolsPage";
+import { TerKixMark, TerKixBadge } from "./components/TerKixLogo";
 
 const DEFAULT_AGENTS: Agent[] = [
   { id: "planner", name: "Planner Agent", role: "Planner", description: "Requirement analysis, task decomposition, and workflow plan generation.", status: "idle", lastAction: "Standby.", color: "bg-[#58A6FF]" },
@@ -1338,23 +1339,23 @@ export default function App() {
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
       `}>
         {/* Logo header */}
-        <div className="h-14 border-b border-[#1e1e1e] flex items-center px-5 gap-3 shrink-0">
-          <div className="w-7 h-7 bg-[#4B7FFF] flex items-center justify-center text-white font-bold text-[11px] font-mono shrink-0">TK</div>
+        <div className="h-14 border-b border-[#1e1e1e] flex items-center px-4 gap-3 shrink-0">
+          <TerKixMark size={28} className="shrink-0" />
           <div className="flex-1 min-w-0">
-            <div className="text-white font-semibold text-sm leading-tight truncate">TerKix</div>
-            <div className="text-[#444444] text-[10px] font-mono">v1.0.5</div>
+            <div className="text-white font-semibold text-sm leading-tight truncate tracking-tight" style={{ letterSpacing: "-0.02em" }}>TerKix</div>
+            <div className="text-[#333333] text-[10px] font-mono tracking-widest uppercase" style={{ letterSpacing: "0.1em" }}>Terminal OS</div>
           </div>
           <button
             type="button"
             onClick={() => setSidebarOpen(false)}
-            className="md:hidden text-[#444444] hover:text-white transition cursor-pointer"
+            className="md:hidden tk-btn tk-btn-ghost tk-btn-icon"
           >
             <X size={14} />
           </button>
         </div>
 
         {/* Navigation items */}
-        <div className="flex-1 overflow-y-auto py-3 px-3 space-y-0.5">
+        <div className="flex-1 overflow-y-auto py-2 px-2 space-y-px">
           {navItems.map(({ section, Icon, label }) => {
             const isActive = currentSection === section;
             return (
@@ -1364,41 +1365,35 @@ export default function App() {
                   setCurrentSection(section);
                   setSidebarOpen(false);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors duration-100 cursor-pointer ${
-                  isActive
-                    ? "bg-[#161616] text-white"
-                    : "text-[#666666] hover:text-[#cccccc] hover:bg-[#0f0f0f]"
-                }`}
+                className={`tk-nav-item ${isActive ? "active" : ""}`}
               >
-                <Icon size={14} className="shrink-0" style={isActive ? { color: "#4B7FFF" } : {}} />
-                <span className="text-[13px] font-medium">{label}</span>
-                {isActive && (
-                  <span className="ml-auto w-1 h-1 bg-[#4B7FFF] shrink-0" />
-                )}
+                <Icon size={13} className="shrink-0" />
+                <span>{label}</span>
+                {isActive && <span className="ml-auto w-1 h-1 bg-[#4B7FFF] shrink-0 rounded-full" />}
               </button>
             );
           })}
         </div>
 
         {/* Bottom: project status */}
-        <div className="border-t border-[#1e1e1e] px-4 py-4 shrink-0 space-y-2">
+        <div className="border-t border-[#1e1e1e] px-4 py-3.5 shrink-0 space-y-2">
           <div className="flex items-center gap-2 min-w-0">
             <span className="relative flex h-1.5 w-1.5 shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full bg-[#4B7FFF] opacity-50"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full bg-[#4B7FFF] opacity-40"></span>
               <span className="relative inline-flex h-1.5 w-1.5 bg-[#4B7FFF]"></span>
             </span>
-            <span className="text-xs font-mono text-[#cccccc] truncate">{activeProject.id}</span>
-            <span className="text-[10px] text-[#444444] font-mono ml-auto shrink-0">{activeProject.activeBranch}</span>
+            <span className="text-[11px] font-mono text-[#888888] truncate">{activeProject.id}</span>
+            <span className="text-[10px] text-[#333333] font-mono ml-auto shrink-0">{activeProject.activeBranch}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[11px] text-[#444444] font-mono">
+            <span className="text-[10px] text-[#333333] font-mono">
               {computedAgents.filter(a => a.status === "running").length > 0
                 ? `${computedAgents.filter(a => a.status === "running").length} running`
                 : "All standby"}
             </span>
             {isMicActive && (
               <span className="flex items-center gap-1 text-[10px] text-red-400 font-mono">
-                <span className="w-1.5 h-1.5 bg-red-500 animate-pulse" />
+                <span className="w-1 h-1 bg-red-500 animate-pulse" />
                 REC
               </span>
             )}
@@ -1420,11 +1415,11 @@ export default function App() {
             >
               <Menu size={15} />
             </button>
-            <div className="md:hidden w-6 h-6 bg-[#4B7FFF] flex items-center justify-center text-white font-bold text-[10px] font-mono shrink-0">TK</div>
+            <TerKixBadge size={22} className="md:hidden shrink-0" />
             <div className="flex items-center gap-2 text-xs font-mono min-w-0">
-              <span className="text-[#444444] hidden sm:inline">tty1</span>
-              <span className="text-[#2a2a2a] hidden sm:inline">/</span>
-              <span className="text-[#cccccc] font-medium capitalize truncate">{currentSection}</span>
+              <span className="text-[#333333] hidden sm:inline">tty1</span>
+              <span className="text-[#222222] hidden sm:inline">/</span>
+              <span className="text-[#cccccc] font-medium capitalize truncate" style={{ letterSpacing: "-0.01em" }}>{currentSection}</span>
               {isProcessing && (
                 <span className="flex items-center gap-0.5 ml-1 shrink-0">
                   <span className="w-1 h-1 bg-[#4B7FFF] animate-bounce [animation-delay:-0.3s]"></span>
@@ -1624,26 +1619,28 @@ export default function App() {
               </div>
 
               {/* ── Keyboard shortcuts bar ── */}
-              <div className="flex items-center gap-1.5 border-t border-[#1e1e1e] bg-[#080808] px-5 py-2.5 select-none overflow-x-auto shrink-0">
-                <div className="flex gap-1.5 flex-1">
+              <div className="flex items-center gap-1.5 border-t border-[#1e1e1e] bg-[#080808] px-5 py-2 select-none overflow-x-auto shrink-0">
+                <div className="flex gap-1 flex-1">
                   {["ESC", "TAB", "CTRL", "ALT", "–", "+", "CLEAR"].map(k => (
                     <button
                       key={k}
                       type="button"
                       onClick={() => handleTermKeyAction(k)}
-                      className="px-2.5 py-1 font-mono text-[10px] bg-[#0f0f0f] border border-[#1e1e1e] text-[#555555] hover:text-[#cccccc] hover:border-[#2a2a2a] cursor-pointer active:scale-95 transition-all duration-100 pointer-events-auto shrink-0"
+                      className="tk-btn tk-btn-outline font-mono shrink-0"
+                      style={{ fontSize: 10, padding: "4px 9px", letterSpacing: "0.04em" }}
                     >
                       {k}
                     </button>
                   ))}
                 </div>
-                <div className="flex gap-1.5 shrink-0">
+                <div className="flex gap-1 shrink-0">
                   {["↑", "↓"].map(k => (
                     <button
                       key={k}
                       type="button"
                       onClick={() => handleTermKeyAction(k === "↑" ? "PGUP" : "PGDN")}
-                      className="w-7 h-7 font-mono text-xs bg-[#0f0f0f] border border-[#1e1e1e] text-[#555555] cursor-pointer hover:text-[#cccccc] hover:border-[#2a2a2a] active:scale-95 transition flex items-center justify-center pointer-events-auto"
+                      className="tk-btn tk-btn-outline font-mono w-7 h-7"
+                      style={{ fontSize: 12, padding: 0 }}
                     >
                       {k}
                     </button>
@@ -1653,27 +1650,30 @@ export default function App() {
 
               {/* ── Command Input ── */}
               <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0f0f0f]">
-                <form
-                  onSubmit={handleCommandSubmit}
-                  className="flex items-center"
-                >
+                <form onSubmit={handleCommandSubmit} className="flex items-stretch">
                   {/* Prompt symbol */}
-                  <div className={`shrink-0 px-5 font-mono font-semibold text-sm select-none ${isProcessing ? "text-[#4B7FFF] animate-pulse" : "text-[#4B7FFF]"}`}>
+                  <div
+                    className={`shrink-0 flex items-center px-5 font-mono font-semibold select-none transition-colors ${
+                      isProcessing ? "text-[#4B7FFF] animate-pulse" : "text-[#4B7FFF]"
+                    }`}
+                    style={{ fontSize: 13 }}
+                  >
                     {isProcessing ? "⟳" : "~$"}
                   </div>
 
-                  {/* Input field */}
+                  {/* Input */}
                   <input
                     type="text"
                     value={commandText}
                     onChange={(e) => setCommandText(e.target.value)}
                     disabled={isProcessing}
                     placeholder={isProcessing ? "Agent executing…" : "Command or natural language prompt…"}
-                    className="bg-transparent border-none outline-none flex-1 font-mono text-sm text-white placeholder-[#2a2a2a] focus:ring-0 select-text min-w-0 py-4"
+                    className="bg-transparent border-none outline-none flex-1 font-mono text-[13px] text-[#eeeeee] placeholder-[#2a2a2a] focus:ring-0 select-text min-w-0 py-3.5"
+                    style={{ fontFeatureSettings: '"kern" 0, "liga" 1', letterSpacing: "0.005em" }}
                     autoFocus
                   />
 
-                  {/* Reasoning toggle */}
+                  {/* Think toggle */}
                   <button
                     type="button"
                     onClick={() => {
@@ -1681,45 +1681,43 @@ export default function App() {
                       if (!thinkingMode) setDetailedReasoningText("Thinking Mode activated. Agent stacks will decompose requirements in detail.");
                       else setDetailedReasoningText("");
                     }}
-                    className={`shrink-0 flex items-center gap-1.5 px-4 py-4 border-l text-[11px] font-medium transition-all duration-150 cursor-pointer pointer-events-auto font-mono ${
-                      thinkingMode
-                        ? "border-l-[#1e1e1e] bg-[#4B7FFF]/10 text-[#7BA3FF]"
-                        : "border-l-[#1e1e1e] text-[#444444] hover:text-[#888888]"
+                    className={`shrink-0 flex items-center gap-1.5 px-4 border-l border-[#1e1e1e] font-mono transition-colors cursor-pointer pointer-events-auto ${
+                      thinkingMode ? "text-[#7BA3FF] bg-[#4B7FFF]/8" : "text-[#444444] hover:text-[#888888]"
                     }`}
+                    style={{ fontSize: 11 }}
                   >
                     <Cpu size={11} />
-                    <span className="hidden sm:inline">{thinkingMode ? "THINK ON" : "THINK"}</span>
+                    <span className="hidden sm:inline">{thinkingMode ? "THINK·ON" : "THINK"}</span>
                   </button>
 
-                  {/* Submit */}
+                  {/* Run */}
                   <button
                     type="submit"
                     disabled={isProcessing}
-                    className={`shrink-0 flex items-center gap-2 px-5 py-4 font-medium text-sm transition-all duration-150 cursor-pointer pointer-events-auto disabled:opacity-40 disabled:cursor-not-allowed border-l border-l-[#1e1e1e] ${
-                      isProcessing
-                        ? "text-[#4B7FFF]"
-                        : "bg-[#4B7FFF] hover:bg-[#6B9FFF] text-white"
+                    className={`shrink-0 flex items-center gap-2 px-5 font-medium border-l border-[#1e1e1e] transition-colors cursor-pointer pointer-events-auto disabled:opacity-40 disabled:cursor-not-allowed ${
+                      isProcessing ? "text-[#4B7FFF]" : "bg-[#4B7FFF] hover:bg-[#5C8FFF] active:bg-[#3A6FEF] text-white"
                     }`}
+                    style={{ fontSize: 13 }}
                   >
                     {isProcessing ? (
                       <>
                         <span className="w-1.5 h-1.5 bg-[#7BA3FF] animate-bounce [animation-delay:-0.15s]" />
-                        <span className="hidden sm:inline font-mono text-xs">running</span>
+                        <span className="hidden sm:inline font-mono text-[11px]">running</span>
                       </>
                     ) : (
                       <>
-                        <Send size={13} />
+                        <Send size={12} strokeWidth={2.5} />
                         <span>Run</span>
                       </>
                     )}
                   </button>
                 </form>
 
-                {/* Command hint */}
-                <div className="flex items-center gap-3 px-5 pb-2">
-                  <span className="text-[10px] font-mono text-[#2a2a2a]">Enter ↵ submit · ESC clear</span>
+                {/* Hint row */}
+                <div className="flex items-center gap-3 px-5 pb-2 pt-0.5">
+                  <span className="text-[10px] font-mono text-[#222222]">Enter ↵ · ESC clear</span>
                   {commandText.length > 0 && (
-                    <span className="text-[10px] font-mono text-[#4B7FFF]/50">{commandText.length} chars</span>
+                    <span className="text-[10px] font-mono text-[#4B7FFF]/40 tabular-nums">{commandText.length}</span>
                   )}
                 </div>
               </div>
