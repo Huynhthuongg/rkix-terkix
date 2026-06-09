@@ -57,6 +57,8 @@ import PluginManager, { CustomPlugin } from "./components/PluginManager";
 import TelemetryD3Chart from "./components/TelemetryD3Chart";
 import CommunityPage from "./components/CommunityPage";
 import LibraryRegistry from "./components/LibraryRegistry";
+import IntegrationsPage from "./components/IntegrationsPage";
+import DomainToolsPage from "./components/DomainToolsPage";
 
 const DEFAULT_AGENTS: Agent[] = [
   { id: "planner", name: "Planner Agent", role: "Planner", description: "Requirement analysis, task decomposition, and workflow plan generation.", status: "idle", lastAction: "Standby.", color: "bg-[#58A6FF]" },
@@ -1301,8 +1303,10 @@ export default function App() {
     { section: "contacts", Icon: Users, label: "Contacts", color: "#BC8CFF" },
     { section: "plugins", Icon: Puzzle, label: "Plugins", color: "#3FB950" },
     { section: "chat", Icon: MessageSquare, label: "Team Chat", color: "#58A6FF" },
-    { section: "community", Icon: Globe, label: "Community", color: "#3FB950" },
-    { section: "library", Icon: Package, label: "Thư viện", color: "#0052cc" },
+    { section: "community", Icon: Globe, label: "Community", color: "#4B7FFF" },
+    { section: "library", Icon: Package, label: "Thư viện", color: "#4B7FFF" },
+    { section: "integrations", Icon: Zap, label: "Integrations", color: "#4B7FFF" },
+    { section: "domains", Icon: HardDrive, label: "Domain Tools", color: "#4B7FFF" },
   ];
 
   return (
@@ -2126,6 +2130,20 @@ export default function App() {
               {currentSection === "library" && (
                 <div className="flex-1 overflow-hidden flex flex-col">
                   <LibraryRegistry />
+                </div>
+              )}
+
+              {/* INTEGRATIONS */}
+              {currentSection === "integrations" && (
+                <div className="flex-1 overflow-hidden flex flex-col">
+                  <IntegrationsPage />
+                </div>
+              )}
+
+              {/* DOMAIN TOOLS */}
+              {currentSection === "domains" && (
+                <div className="flex-1 overflow-hidden flex flex-col">
+                  <DomainToolsPage />
                 </div>
               )}
 
