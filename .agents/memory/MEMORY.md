@@ -1,0 +1,3 @@
+- [TerKix brand](terkix-brand.md) — brand name is TerKix (not RKix), logo badge is "TK" blue #58A6FF; sed replacement covers App.tsx, server.ts, index.html.
+- [Mobile viewport rules](mobile-viewport.md) — must use maximum-scale=1.0 user-scalable=no viewport-fit=cover + height:-webkit-fill-available + overscroll-behavior:none to prevent bounce/zoom on iOS.
+- [Sidebar responsive pattern](sidebar-mobile.md) — sidebar uses fixed+translate-x on mobile (drawer overlay z-40), static on md+; sidebarOpen state drives toggle; backdrop div closes it.
